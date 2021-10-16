@@ -52,13 +52,27 @@ void SieveOfEratosthenes(std::vector<ul> &primes, ul n)
     printf("Completed Sieve\n");
 }
 
+void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors){
+	factors.clear();
+	for(auto i = primes.begin(); i != primes.end(); ++i){
+		ul p = *i;
+		if(p > n) break;
+		while((n % p)==0){
+			factors.push_back(p);
+			n /= p;
+		}
+	}
+}
+		
+
 #if(0)
 int main(void) {
     std::vector<ul> primes;
     const ul n = 100000000; //10^8 requires about 9 seconds
     SieveOfEratosthenes(primes,n);
     //for(auto pf = primes.begin(); pf != primes.end(); ++pf) printf("%lu  ", *pf);
-    NL;
+    //NL;
+ 
 }
 #endif
 

@@ -30,9 +30,19 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	const ul N = 100000000;
+	//const ul N = 100000000;
+	const ul N = 1000;	// restricted debug value
 	vector<ul> primes;
+	vector<ul> factors;
 	SieveOfEratosthenes(primes, N);
-	return 0;
+	// use examples of n=10 and n=25
+	for(ul x = 2; x <= 100; ++x){
+		find_factors(primes, x, factors);
+		cout << x << ":  ";
+		for(auto f = factors.begin(); f != factors.end(); ++f)
+			cout << *f << " ";
+		NL;
+	}
+	
 }
 

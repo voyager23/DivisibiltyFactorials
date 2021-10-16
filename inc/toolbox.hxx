@@ -32,5 +32,6 @@
 	#define NL std::cout<<std::endl
 	typedef uint64_t ul;
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
+	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
 	
 #endif
