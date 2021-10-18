@@ -31,14 +31,15 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	const ul N = 100000000;
-	
-	//const ul N = 1000;	// restricted debug value
-
+	//const ul N = 100000000; 
+	const ul N = 1000;	// restricted debug value
 	vector<ul> factors;	// holds prime factors for a single integer
 	vector<ul> factorials;
 	vector<ul> primes;
 	SieveOfEratosthenes(primes, N);
+	
+	ul S = 0;
+	
 #if(0)	
 	for(ul x = 2; x <= 10000; ++x){
 		find_factors(primes, x, factors);
@@ -48,13 +49,15 @@ int main(int argc, char **argv)
 			cout << *f << " ";
 		NL;
 	}
+#endif
+
 	// machine limit is 19!
 	generate_factorials(factorials);
 	// factorials printout
 	NL;
 	for(ul fc = 0; fc != factorials.size(); ++fc)
 		cout << fc << "! = " << factorials[fc] << endl;
-#endif
+
 
 	// vector of prime,power,product for 2 <= i <= 100
 	vector<PPP> v_p3;
@@ -83,7 +86,21 @@ int main(int argc, char **argv)
 		cout << "\nN:" << n << endl;
 		//for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
 		cout << "{" << greatest_product.prime << "," << greatest_product.power << "," << greatest_product.product << "}\n";
+		S += greatest_product.product;
+		
+		// DEBUG TESTING
+		// if(greatest_product <= 19) test divisibilty of n into vector of factorials 
+		if(greatest_product.product <= 19){
+			for(size_t i = 2; i != factorials.size(); ++i){
+				if(((factorials[i] % n)==0)&&((i)!=greatest_product.product)){
+					cout << "Mismatch " << i <<"! % "<< n << " = 0" << endl;
+					
+					break;
+				}
+			}
+		}
+			
 	} // while n...
-	
+	cout << "S(" << N << ") = " << S << endl;
 } // end main
 

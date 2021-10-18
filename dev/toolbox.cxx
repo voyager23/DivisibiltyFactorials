@@ -70,6 +70,7 @@ void generate_factorials(std::vector<ul> &factorials){
 	factorials.clear();
 	ul m = 1;
 	factorials.push_back(m);
+	factorials.push_back(m);
 	for(ul n = 2; n <= limit; ++n){
 		m *= n;
 		factorials.push_back(m);
