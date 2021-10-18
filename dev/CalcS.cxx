@@ -31,31 +31,31 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	//const ul N = 100000000;
+	const ul N = 100000000;
 	
-	const ul N = 1000;	// restricted debug value
+	//const ul N = 1000;	// restricted debug value
 
 	vector<ul> factors;	// holds prime factors for a single integer
 	vector<ul> factorials;
 	vector<ul> primes;
 	SieveOfEratosthenes(primes, N);
-	
-	for(ul x = 2; x <= 100; ++x){
+#if(0)	
+	for(ul x = 2; x <= 10000; ++x){
 		find_factors(primes, x, factors);
+
 		cout << x << ":  ";
 		for(auto f = factors.begin(); f != factors.end(); ++f)
 			cout << *f << " ";
 		NL;
 	}
-	
 	// machine limit is 19!
 	generate_factorials(factorials);
-	
 	// factorials printout
 	NL;
 	for(ul fc = 0; fc != factorials.size(); ++fc)
 		cout << fc << "! = " << factorials[fc] << endl;
-		
+#endif
+
 	// vector of prime,power,product for 2 <= i <= 100
 	vector<PPP> v_p3;
 	PPP p3;
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 		} // while i
 		// debug print the values of n & v_p3
 		cout << "\nN:" << n << endl;
-		for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
+		//for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
 		cout << "{" << greatest_product.prime << "," << greatest_product.power << "," << greatest_product.product << "}\n";
 	} // while n...
 	
