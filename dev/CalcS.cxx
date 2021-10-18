@@ -25,17 +25,21 @@ using namespace std;
 
 #include <iostream>
 #include <vector>
+#include <iterator>
 
 #include "../inc/toolbox.hxx"
 
 int main(int argc, char **argv)
 {
 	//const ul N = 100000000;
+	
 	const ul N = 1000;	// restricted debug value
+
+	vector<ul> factors;	// holds prime factors for a single integer
+	vector<ul> factorials;
 	vector<ul> primes;
-	vector<ul> factors;
 	SieveOfEratosthenes(primes, N);
-	// use examples of n=10 and n=25
+	
 	for(ul x = 2; x <= 100; ++x){
 		find_factors(primes, x, factors);
 		cout << x << ":  ";
@@ -44,5 +48,42 @@ int main(int argc, char **argv)
 		NL;
 	}
 	
-}
+	// machine limit is 19!
+	generate_factorials(factorials);
+	
+	// factorials printout
+	NL;
+	for(ul fc = 0; fc != factorials.size(); ++fc)
+		cout << fc << "! = " << factorials[fc] << endl;
+		
+	// vector of prime,power,product for 2 <= i <= 100
+	vector<PPP> v_p3;
+	PPP p3;
+	PPP greatest_product;
+	for(ul n = 2; n <= 100; ++n){
+		find_factors(primes,n,factors);	// 2,2,3,13...
+		// remap factors vector to struct PPP
+		vector<ul>::iterator i = factors.begin();
+		vector<ul>::iterator j;
+		v_p3.clear();
+		greatest_product = {0,0,0};
+		while(i != factors.end()){
+			p3 = {*i, 0, 0};
+			j = i;
+			while((j != factors.end())&&(*i == *j)){
+				p3.power += 1;
+				++j;
+			}
+			p3.product = p3.prime*p3.power;
+			if(p3.product > greatest_product.product) greatest_product = p3;		
+			v_p3.push_back(p3);
+			i = j;
+		} // while i
+		// debug print the values of n & v_p3
+		cout << "\nN:" << n << endl;
+		for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
+		cout << "{" << greatest_product.prime << "," << greatest_product.power << "," << greatest_product.product << "}\n";
+	} // while n...
+	
+} // end main
 

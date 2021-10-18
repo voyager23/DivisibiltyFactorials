@@ -30,8 +30,16 @@
 #define __TOOLBOX_HXX__
 
 	#define NL std::cout<<std::endl
+	
 	typedef uint64_t ul;
+	typedef struct{
+		ul prime;
+		ul power;
+		ul product;
+	}PPP;
+	 
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
 	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
-	
+	void generate_factorials(std::vector<ul> &factorials);
+		
 #endif

@@ -63,6 +63,18 @@ void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors){
 		}
 	}
 }
+
+void generate_factorials(std::vector<ul> &factorials){
+	// assume a machine limit of 20! based on 64-bit unsigned
+	const ul limit = 20;
+	factorials.clear();
+	ul m = 1;
+	factorials.push_back(m);
+	for(ul n = 2; n <= limit; ++n){
+		m *= n;
+		factorials.push_back(m);
+	}
+}
 		
 
 #if(0)
