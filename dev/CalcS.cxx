@@ -59,17 +59,17 @@ int main(int argc, char **argv)
 		cout << fc << "! = " << factorials[fc] << endl;
 
 
-	// vector of prime,power,product for 2 <= i <= 100
+	// vector of prime,power,pxp for 2 <= i <= 100
 	vector<PPP> v_p3;
 	PPP p3;
-	PPP greatest_product;
+	PPP prod;
 	for(ul n = 2; n <= 100; ++n){
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
 		vector<ul>::iterator i = factors.begin();
 		vector<ul>::iterator j;
 		v_p3.clear();
-		greatest_product = {0,0,0};
+		prod = {0,0,0};
 		while(i != factors.end()){
 			p3 = {*i, 0, 0};
 			j = i;
@@ -77,28 +77,31 @@ int main(int argc, char **argv)
 				p3.power += 1;
 				++j;
 			}
-			p3.product = p3.prime*p3.power;
-			if(p3.product > greatest_product.product) greatest_product = p3;		
+			p3.pxp = p3.prime*p3.power;
+			if(p3.pxp > prod.pxp) prod = p3;		
 			v_p3.push_back(p3);
 			i = j;
 		} // while i
+		
 		// debug print the values of n & v_p3
 		cout << "\nN:" << n << endl;
 		//for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
-		cout << "{" << greatest_product.prime << "," << greatest_product.power << "," << greatest_product.product << "}\n";
-		S += greatest_product.product;
+		cout << "{" << prod.prime << "," << prod.power << "," << prod.pxp << "}\n";
+		S += prod.pxp;
 		
 		// DEBUG TESTING
-		// if(greatest_product <= 19) test divisibilty of n into vector of factorials 
-		if(greatest_product.product <= 19){
+		// if(prod <= 19) test divisibilty of n into vector of factorials 
+		if(prod.pxp <= 19){
 			for(size_t i = 2; i != factorials.size(); ++i){
-				if(((factorials[i] % n)==0)&&((i)!=greatest_product.product)){
-					cout << "Mismatch " << i <<"! % "<< n << " = 0" << endl;
-					
+				
+				if((factorials[i] % n)==0){
+					cout << i <<"! % "<< n << " = 0" << endl;
+					if(i != prod.pxp) cout << "???" << endl;		
 					break;
 				}
-			}
-		}
+				
+			} // for...
+		} // if...
 			
 	} // while n...
 	cout << "S(" << N << ") = " << S << endl;
