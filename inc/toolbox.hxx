@@ -35,7 +35,7 @@
 	typedef struct{
 		ul prime;
 		ul power;
-		ul product;
+		ul pxp;
 	}PPP;
 	 
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
