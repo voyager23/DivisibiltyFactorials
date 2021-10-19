@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 	vector<PPP> v_p3;
 	PPP p3;
 	PPP prod;
-	for(ul n = 2; n <= 100; ++n){
+	for(ul n = 3; n <= 100; ++n){
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
 		vector<ul>::iterator i = factors.begin();
@@ -78,6 +78,7 @@ int main(int argc, char **argv)
 				++j;
 			}
 			p3.pxp = p3.prime*p3.power;
+			if(p3.prime == 2) p3.pxp -= 2;	// This is a hack!
 			if(p3.pxp > prod.pxp) prod = p3;		
 			v_p3.push_back(p3);
 			i = j;
@@ -85,7 +86,7 @@ int main(int argc, char **argv)
 		
 		// debug print the values of n & v_p3
 		cout << "\nN:" << n << endl;
-		//for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
+		for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->pxp << "}\n";
 		cout << "{" << prod.prime << "," << prod.power << "," << prod.pxp << "}\n";
 		S += prod.pxp;
 		
