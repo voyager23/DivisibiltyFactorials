@@ -25,7 +25,7 @@
 
 void SieveOfEratosthenes(std::vector<ul> &primes, ul n)
 {
-	printf("Starting Sieve for n = %ld\n",n);
+	printf("Starting Sieve for n = %llu\n",n);
     // internal vector of bool
     std::vector<bool> prime;
     // Set n+1 entries in vector<bool> to true
@@ -77,6 +77,23 @@ void generate_factorials(std::vector<ul> &factorials){
 	}
 }
 		
+void generate_descriptors(std::vector<ul> &primes, ul n, Vdescriptors &vdescriptors){
+	// Generates a vector of descriptors for integer n. Each element is a pair<prime, power>
+	std::pair<uint,uint> temp;
+	vdescriptors.clear();
+	for(auto i = primes.begin(); i != primes.end(); ++i){
+		ul p = *i;
+		if(p > n) break;
+		temp = {p,0};
+		while((n % p)==0){
+			temp.second += 1;
+			n /= p;
+		}
+		// save <prime,power> to vector
+		if(temp.second > 0) vdescriptors.push_back(temp);
+	}
+}	
+
 
 #if(0)
 int main(void) {

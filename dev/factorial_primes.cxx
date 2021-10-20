@@ -1,5 +1,5 @@
 /*
- * toolbox.hxx
+ * factorial_primes.cxx
  * 
  * Copyright 2021 Michael Tate <mike@Michaels-MBP>
  * 
@@ -20,33 +20,28 @@
  * 
  * 
  */
-
+ 
 #include <iostream>
-#include <numeric>
-#include <array>
 #include <vector>
+#include <iterator>
 #include <utility>
+using namespace std;
+#include "../inc/toolbox.hxx"
 
-#ifndef __TOOLBOX_HXX__
-#define __TOOLBOX_HXX__
-
-	#define NL std::cout<<std::endl
-	
-	typedef uint64_t ul;
-	typedef struct{
-		ul prime;
-		ul power;
-		ul pxp;
-	}PPP;
-	
-	// Describe n! as sequence of prime powers
-	typedef std::vector<std::pair<uint,uint>> Vdescriptors;  // applies to a single integer
-	typedef std::vector<Vdescriptors> Database;
-	
-	 
-	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
-	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
-	void generate_factorials(std::vector<ul> &factorials);
-	void generate_descriptors(std::vector<ul> &primes, ul n, Vdescriptors &vdescriptors);
-		
-#endif
+int main(int argc, char **argv)
+{
+	const ul n = 100000000; //10^8 requires about 9 seconds
+    std::vector<ul> primes;
+    SieveOfEratosthenes(primes,n);
+	Vdescriptors vd;
+	Database db;
+	cout<<"Starting database"<<endl;
+	for(ul n = 0; n <= 1000000; ++n){
+		vd.clear();
+		generate_descriptors(primes, n, vd);
+		db.push_back(vd);
+	}
+    NL;
+    cout << "Database.size():" << db.size() << endl;
+    
+}
