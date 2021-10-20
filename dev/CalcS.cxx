@@ -31,22 +31,13 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-<<<<<<< HEAD
-	const ul N = 100;
-	
-=======
 	//const ul N = 100000000; 
 	const ul N = 1000;	// restricted debug value
->>>>>>> 7f57ddc1fe81b0154b1c77a09707146b5e082581
 	vector<ul> factors;	// holds prime factors for a single integer
 	vector<ul> factorials;
 	vector<ul> primes;
 	SieveOfEratosthenes(primes, N);
-<<<<<<< HEAD
 	ul S = 0;	// Sum of s(i). S(100) = 2012
-=======
-	
-	ul S = 0;
 	
 #if(0)	
 	for(ul x = 2; x <= 10000; ++x){
@@ -65,19 +56,13 @@ int main(int argc, char **argv)
 	NL;
 	for(ul fc = 0; fc != factorials.size(); ++fc)
 		cout << fc << "! = " << factorials[fc] << endl;
->>>>>>> 7f57ddc1fe81b0154b1c77a09707146b5e082581
 
 
 	// vector of prime,power,pxp for 2 <= i <= 100
 	vector<PPP> v_p3;
 	PPP p3;
-<<<<<<< HEAD
-	PPP greatest_product;
-	for(ul n = 2; n <= N; ++n){
-=======
 	PPP prod;
 	for(ul n = 2; n <= 100; ++n){
->>>>>>> 7f57ddc1fe81b0154b1c77a09707146b5e082581
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
 		vector<ul>::iterator i = factors.begin();
@@ -99,11 +84,7 @@ int main(int argc, char **argv)
 		
 		// debug print the values of n & v_p3
 		cout << "\nN:" << n << endl;
-		//for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->product << "}\n";
-<<<<<<< HEAD
-		cout << "{" << greatest_product.prime << "," << greatest_product.power << "," << greatest_product.product << "}\n";
-		S += greatest_product.product;
-=======
+		for(auto i = v_p3.begin(); i != v_p3.end(); ++i) cout << "{" << i->prime << "," << i->power << "," << i->pxp << "}\n";
 		cout << "{" << prod.prime << "," << prod.power << "," << prod.pxp << "}\n";
 		S += prod.pxp;
 		
@@ -121,8 +102,7 @@ int main(int argc, char **argv)
 			} // for...
 		} // if...
 			
->>>>>>> 7f57ddc1fe81b0154b1c77a09707146b5e082581
 	} // while n...
-	cout << "S(" << N << ") = " << S << endl;
+	cout << "S(" << 100 << ") = " << S << endl;
 } // end main
 
