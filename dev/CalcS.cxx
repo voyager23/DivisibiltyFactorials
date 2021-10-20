@@ -62,8 +62,8 @@ int main(int argc, char **argv)
 	// vector of prime,power,pxp for 2 <= i <= 100
 	vector<PPP> v_p3;
 	PPP p3;
-	PPP prod;
-	for(ul n = 3; n <= 100; ++n){
+	PPP prod;		// record the largest value discovered
+	for(ul n = 2; n <= 100; n += 2){
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
 		vector<ul>::iterator i = factors.begin();
@@ -78,7 +78,6 @@ int main(int argc, char **argv)
 				++j;
 			}
 			p3.pxp = p3.prime*p3.power;
-			if(p3.prime == 2) p3.pxp -= 2;	// This is a hack!
 			if(p3.pxp > prod.pxp) prod = p3;		
 			v_p3.push_back(p3);
 			i = j;
@@ -105,6 +104,6 @@ int main(int argc, char **argv)
 		} // if...
 			
 	} // while n...
-	cout << "S(" << N << ") = " << S << endl;
+	cout << "S(" << 100 << ") = " << S << endl;
 } // end main
 
