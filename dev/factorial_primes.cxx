@@ -40,23 +40,42 @@ int main(int argc, char **argv)
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,n);
 	Vdescriptors vd;
+	Vdescriptors temp ;
 	Database db;
-	cout<<"Starting database"<<endl;
-	for(ul n = 0; n <= 100; ++n){
+	
+	temp.push_back({0,0});
+	db.push_back(temp);
+	db.push_back(temp);
+	temp.clear();
+	
+	cout<<"Starting database at 2"<<endl;
+	for(ul n = 2; n <= 100; ++n){
+		// generate the prime description of n
 		vd.clear();
 		generate_descriptors(primes, n, vd);
-		db.push_back(vd);
-	}
-    NL;
-    int idx = 0;
-    for(auto a = db.begin(); a != db.end(); ++a){
-		printf("N:idx%u", idx);
-		NL;
-		for(auto b = a->begin(); b != a->end(); ++b){
-			printf("prime:%u  power:%u\n", b->first, b->second);
-		}
-		NL;
-		idx++;
-	}
-    
+		// make a copy of last entry in database
+		temp = db.back();
+		// for each prime in vd:
+		//		if prime in temp - add new power to existing
+		//			else - create new descriptor in temp
+		// 
+		// db.push_back(temp)
+		for(auto a = vd.begin(); a != vd.end(); ++a){
+			// pair<prime,power>
+			auto b = temp.begin();
+			while(b != temp.end()){
+				if (b->first == a->first) break;
+				++b;
+			}
+			if(b != temp.end()){	// found prime
+				b->second += a->second;
+			} else {					// new prime,power pair
+				temp.push_back(*a);
+			}
+		} // for a...
+		
+		db.push_back(temp);
+
+	} // for n=3...
+	NL;
 }
