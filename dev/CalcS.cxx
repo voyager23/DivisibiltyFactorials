@@ -21,12 +21,12 @@
  * Considering numbers 2 <= i <= 10^8
  */
 
-using namespace std;
+
 
 #include <iostream>
 #include <vector>
 #include <iterator>
-
+using namespace std;
 #include "../inc/toolbox.hxx"
 
 int main(int argc, char **argv)
@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 	vector<PPP> v_p3;
 	PPP p3;
 	PPP prod;
+	ul nn = 0;
 	for(ul n = 2; n <= 100; ++n){
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
@@ -100,6 +101,8 @@ int main(int argc, char **argv)
 				}
 				
 			} // for...
+		} else {
+			cout<<"No test avaiable"<<endl;
 		} // if...
 			
 	} // while n...
