@@ -42,24 +42,16 @@ int main(int argc, char **argv)
 	Vdescriptors vd;
 	Vdescriptors temp ;
 	Database db;
-	
-	temp.push_back({0,0});
-	db.push_back(temp);
+	temp.push_back({2,1});
 	db.push_back(temp);
 	temp.clear();
 	
-	cout<<"Starting database at 2"<<endl;
-	for(ul n = 2; n <= 100; ++n){
+	cout<<"Starting database at n=3"<<endl;
+	for(ul n = 3; n <= 100; ++n){
 		// generate the prime description of n
 		vd.clear();
 		generate_descriptors(primes, n, vd);
-		// make a copy of last entry in database
-		temp = db.back();
-		// for each prime in vd:
-		//		if prime in temp - add new power to existing
-		//			else - create new descriptor in temp
-		// 
-		// db.push_back(temp)
+		temp = db.back();	// setup temp variable
 		for(auto a = vd.begin(); a != vd.end(); ++a){
 			// pair<prime,power>
 			auto b = temp.begin();
@@ -73,9 +65,36 @@ int main(int argc, char **argv)
 				temp.push_back(*a);
 			}
 		} // for a...
-		
 		db.push_back(temp);
-
 	} // for n=3...
+	
+	// DEBUG print of database
+	ul fact1 = 4;
+	ul range = 3;
+	auto a = db.begin()+fact1-2;
+	auto b = a + range;
+	while(a < b){
+		for(auto g = a->begin(); g != a->end(); ++g) printf("{%u,%u} ", g->first,g->second);
+		NL;
+		++a;
+	}
+	// end debug section
+	
+	// load vector temp with test query
+	temp = db[3]; // 5! { {5,1}, {3,1}, {2,3} }
+	// phase 1 - scan up for first vector with largest prime
+	a = db.begin();
+	while(a != db.end()){
+		if ((a->back()).first ==temp.back().first) break;
+		++a;
+	}
+	if(a == db.end()){
+		cout << "Query not found" << endl;
+	} else {
+		cout << "High prime found." << endl;
+	}
+	for(auto g = a->begin(); g != a->end(); ++g) printf("{%u,%u} ", g->first,g->second);
+	NL;
+	// phase 2 - use cmp_groups to locate first factorial which is divisible by n
 	NL;
 }

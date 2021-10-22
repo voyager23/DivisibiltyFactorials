@@ -34,13 +34,12 @@
 	
 	typedef uint64_t ul;
 	typedef struct{
-		ul prime;
-		ul power;
-		ul pxp;
+		ul prime,power,pxp;
 	}PPP;
 	
 	// Describe n! as sequence of prime powers
-	typedef std::vector<std::pair<uint,uint>> Vdescriptors;  // applies to a single integer
+	typedef std::pair<uint,uint> Group;
+	typedef std::vector<Group> Vdescriptors;  // applies to a single integer
 	typedef std::vector<Vdescriptors> Database;
 	
 	 
@@ -48,5 +47,6 @@
 	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
 	void generate_factorials(std::vector<ul> &factorials);
 	void generate_descriptors(std::vector<ul> &primes, ul n, Vdescriptors &vdescriptors);
-		
+	bool cmp_groups(Group &l, Group &r);
+	
 #endif

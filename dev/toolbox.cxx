@@ -79,7 +79,7 @@ void generate_factorials(std::vector<ul> &factorials){
 		
 void generate_descriptors(std::vector<ul> &primes, ul n, Vdescriptors &vdescriptors){
 	// Generates a vector of descriptors for integer n. Each element is a pair<prime, power>
-	std::pair<uint,uint> temp;
+	Group temp;
 	vdescriptors.clear();
 	for(auto i = primes.begin(); i != primes.end(); ++i){
 		ul p = *i;
@@ -92,7 +92,13 @@ void generate_descriptors(std::vector<ul> &primes, ul n, Vdescriptors &vdescript
 		// save <prime,power> to vector
 		if(temp.second > 0) vdescriptors.push_back(temp);
 	}
-}	
+}
+
+bool cmp_groups(Group &ref, Group &query){
+	// Compare prime and power in each group
+	// return true iff (ref.prime==query.prime)AND(ref.power>=query.power)
+	return ((ref.first==query.first)&&(ref.second>=query.second));
+}
 
 
 #if(0)
