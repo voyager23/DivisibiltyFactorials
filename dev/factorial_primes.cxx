@@ -86,31 +86,20 @@ int main(int argc, char **argv)
 	// 5! { {5,1}, {3,1}, {2,3} }
 	// 9! { { {2,7} {3,4} {5,1} {7,1} }
 	
-	PfactOfN query = { {2,3},{3,1},{5,1} };
-	vector<PfactOfN>::iterator lower_bound, upper_bound;
-	// phase 1 - establish lower bound - comparison is true if (a<b) - consider prime only
-	for(lower_bound = db.begin(); lower_bound != db.end(); ++lower_bound) {
-		if (lower_bound->front().first == query.front().first) break;
+	PfactOfN query = { {2,3},{3,1},{5,2} };
+	vector<PfactOfN>::iterator lo;
+	// phase 1 - establish index for hi_prime
+	for(lo = db.begin(); lo != db.end(); ++lo) {
+		PrimePower dat = lo->back();
+		PrimePower qry = query.back();
+		if (dat.first == qry.first)  break;
 	}
-	if (lower_bound == db.end()) { 
+	if (lo == db.end()) { 
 		printf("Error: lower_bound not found\n");
 		exit(1);
-	} else {
-		printf("lower_bound established\n");
 	}
-	
-	upper_bound = lower_bound;
-	
-	while(upper_bound != db.end()){
-		if (upper_bound->front().first > query.front().first) break;
-		++upper_bound;
-	}
-	
-	if (upper_bound == db.end()) {
-		printf("Error: upper_bound not found\n");
-		exit(1);
-	} else {
-		printf("Upper bound established\n");
-	}
-	
+	size_t inc = distance(db.begin(), lo);
+	size_t pos = lo->size();
+	printf("Found lo, %lu posn. %lu", inc, pos);
+	size_t idx = inc;
 } // end
