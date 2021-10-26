@@ -39,9 +39,9 @@ int main(int argc, char **argv)
 	const ul n = 1000; //10^8 requires about 9 seconds
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,n);
-	Vdescriptors vd;
-	Vdescriptors temp ;
-	Database db;
+	PfactOfN vd;
+	PfactOfN temp ;
+	vector<PfactOfN> db;
 	temp.push_back({2,1});	//2!
 	db.push_back(temp);
 	temp.clear();
@@ -86,20 +86,31 @@ int main(int argc, char **argv)
 	// 5! { {5,1}, {3,1}, {2,3} }
 	// 9! { { {2,7} {3,4} {5,1} {7,1} }
 	
-	Vdescriptors query = { {2,3},{3,1},{5,1} };
-	Database::iterator lower_bound, upper_bound;
+	PfactOfN query = { {2,3},{3,1},{5,1} };
+	vector<PfactOfN>::iterator lower_bound, upper_bound;
 	// phase 1 - establish lower bound - comparison is true if (a<b) - consider prime only
-	for(lower_bound = db.begin(); lower_bound < db.end(); ++lower_bound) if (lower_bound->front().first == query.front().first) break;
+	for(lower_bound = db.begin(); lower_bound != db.end(); ++lower_bound) {
+		if (lower_bound->front().first == query.front().first) break;
+	}
 	if (lower_bound == db.end()) { 
 		printf("Error: lower_bound not found\n");
 		exit(1);
+	} else {
+		printf("lower_bound established\n");
 	}
 	
-	for(upper_bound = lower_bound; upper_bound < db.end(); ++upper_bound) if (upper_bound->front().first > query.front().first) break;
+	upper_bound = lower_bound;
+	
+	while(upper_bound != db.end()){
+		if (upper_bound->front().first > query.front().first) break;
+		++upper_bound;
+	}
+	
 	if (upper_bound == db.end()) {
 		printf("Error: upper_bound not found\n");
 		exit(1);
+	} else {
+		printf("Upper bound established\n");
 	}
 	
-		
 } // end

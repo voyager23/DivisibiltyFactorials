@@ -20,15 +20,13 @@
  * 
  * 
  */
-
+#ifndef __TOOLBOX_HXX__
+#define __TOOLBOX_HXX__
 #include <iostream>
 #include <numeric>
 #include <array>
 #include <vector>
 #include <utility>
-
-#ifndef __TOOLBOX_HXX__
-#define __TOOLBOX_HXX__
 
 	#define NL std::cout<<std::endl
 	
@@ -38,15 +36,14 @@
 	}PPP;
 	
 	// Describe n! as sequence of prime powers
-	typedef std::pair<uint,uint> Group;
-	typedef std::vector<Group> Vdescriptors;  // applies to a single integer
-	typedef std::vector<Vdescriptors> Database;
+	typedef std::pair<uint,uint> PrimePower;
+	typedef std::vector<PrimePower> PfactOfN;  // applies to a single integer
 	
 	 
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
 	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
 	void generate_factorials(std::vector<ul> &factorials);
-	void generate_descriptors(std::vector<ul> &primes, ul n, Vdescriptors &vdescriptors);
-	bool cmp_groups(Group &l, Group &r);
+	void generate_descriptors(std::vector<ul> &primes, ul n, PfactOfN &PfactOfN);
+	bool cmp_PrimePowers(PrimePower &l, PrimePower &r);
 	
 #endif
