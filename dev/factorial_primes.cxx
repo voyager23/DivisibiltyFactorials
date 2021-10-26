@@ -42,11 +42,11 @@ int main(int argc, char **argv)
 	Vdescriptors vd;
 	Vdescriptors temp ;
 	Database db;
-	temp.push_back({2,1});
+	temp.push_back({2,1});	//2!
 	db.push_back(temp);
 	temp.clear();
 	
-	cout<<"Starting database at n=3"<<endl;
+	cout<<"Starting database at 3!"<<endl;
 	for(ul n = 3; n <= 100; ++n){
 		// generate the prime description of n
 		vd.clear();
@@ -69,32 +69,37 @@ int main(int argc, char **argv)
 	} // for n=3...
 	
 	// DEBUG print of database
-	ul fact1 = 4;
-	ul range = 3;
+	ul fact1 = 2;
+	ul range = 40;
 	auto a = db.begin()+fact1-2;
 	auto b = a + range;
 	while(a < b){
+		printf("%llu! = ", fact1);
 		for(auto g = a->begin(); g != a->end(); ++g) printf("{%u,%u} ", g->first,g->second);
 		NL;
 		++a;
+		++fact1;
 	}
 	// end debug section
 	
 	// load vector temp with test query
-	temp = db[3]; // 5! { {5,1}, {3,1}, {2,3} }
-	// phase 1 - scan up for first vector with largest prime
-	a = db.begin();
-	while(a != db.end()){
-		if ((a->back()).first ==temp.back().first) break;
-		++a;
+	// 5! { {5,1}, {3,1}, {2,3} }
+	// 9! { { {2,7} {3,4} {5,1} {7,1} }
+	
+	Vdescriptors query = { {2,3},{3,1},{5,1} };
+	Database::iterator lower_bound, upper_bound;
+	// phase 1 - establish lower bound - comparison is true if (a<b) - consider prime only
+	for(lower_bound = db.begin(); lower_bound < db.end(); ++lower_bound) if (lower_bound->front().first == query.front().first) break;
+	if (lower_bound == db.end()) { 
+		printf("Error: lower_bound not found\n");
+		exit(1);
 	}
-	if(a == db.end()){
-		cout << "Query not found" << endl;
-	} else {
-		cout << "High prime found." << endl;
+	
+	for(upper_bound = lower_bound; upper_bound < db.end(); ++upper_bound) if (upper_bound->front().first > query.front().first) break;
+	if (upper_bound == db.end()) {
+		printf("Error: upper_bound not found\n");
+		exit(1);
 	}
-	for(auto g = a->begin(); g != a->end(); ++g) printf("{%u,%u} ", g->first,g->second);
-	NL;
-	// phase 2 - use cmp_groups to locate first factorial which is divisible by n
-	NL;
-}
+	
+		
+} // end

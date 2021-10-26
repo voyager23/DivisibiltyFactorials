@@ -62,8 +62,7 @@ int main(int argc, char **argv)
 	vector<PPP> v_p3;
 	PPP p3;
 	PPP prod;
-	ul nn = 0;
-	for(ul n = 2; n <= 100; ++n){
+	for(ul n = 3; n <= 100; n+=2){
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
 		vector<ul>::iterator i = factors.begin();
@@ -77,7 +76,7 @@ int main(int argc, char **argv)
 				p3.power += 1;
 				++j;
 			}
-			p3.pxp = p3.prime*p3.power;
+			p3.pxp = p3.prime*(p3.power);			
 			if(p3.pxp > prod.pxp) prod = p3;		
 			v_p3.push_back(p3);
 			i = j;
