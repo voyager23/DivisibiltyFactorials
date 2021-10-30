@@ -37,13 +37,13 @@
 	
 	// Describe n! as sequence of prime powers
 	typedef std::pair<uint,uint> PrimePower;
-	typedef std::vector<PrimePower> PfactOfN;  // applies to a single integer
+	typedef std::vector<PrimePower> PfactOfN;  // describes the prime powers of a factorial
 	
-	 
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
 	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
 	void generate_factorials(std::vector<ul> &factorials);
 	void generate_descriptors(std::vector<ul> &primes, ul n, PfactOfN &PfactOfN);
 	bool cmp_PrimePowers(PrimePower &l, PrimePower &r);
+	void prt_pfofn(PfactOfN &pf);
 	
 #endif

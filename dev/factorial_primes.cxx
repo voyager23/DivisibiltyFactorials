@@ -25,6 +25,7 @@
 #include <vector>
 #include <iterator>
 #include <utility>
+#include <algorithm>
 using namespace std;
 #include "../inc/toolbox.hxx"
 
@@ -86,20 +87,46 @@ int main(int argc, char **argv)
 	// 5! { {5,1}, {3,1}, {2,3} }
 	// 9! { { {2,7} {3,4} {5,1} {7,1} }
 	
-	PfactOfN query = { {2,3},{3,1},{5,2} };
+	PfactOfN query = {  {2,7}, {3,4}, {5,1}, {7,1} };
 	vector<PfactOfN>::iterator lo;
 	// phase 1 - establish index for hi_prime
+	
+	PrimePower qry = query.back();
 	for(lo = db.begin(); lo != db.end(); ++lo) {
-		PrimePower dat = lo->back();
-		PrimePower qry = query.back();
-		if (dat.first == qry.first)  break;
+		//PrimePower dat = lo->back();
+		if (lo->back().first == qry.first) break;
 	}
 	if (lo == db.end()) { 
 		printf("Error: lower_bound not found\n");
 		exit(1);
 	}
-	size_t inc = distance(db.begin(), lo);
-	size_t pos = lo->size();
-	printf("Found lo, %lu posn. %lu", inc, pos);
-	size_t idx = inc;
+	size_t row = distance(db.begin(), lo);
+	size_t col = lo->size()-1;
+	printf("Found query, row %lu col %lu\n", row, col);
+	PrimePower pp = db[row][col];
+	// extablish the correct prime/power entry
+	while(pp.second < qry.second){
+		row += 1;
+		pp = db[row][col];
+	}
+	
+	// if powers for all other primes are greater than query - solution
+	// 	else increment row and retry
+
+	bool fail = false;
+	while(fail){
+		for(int c = 0; c != col; ++c){
+			if((db[row][c].first == qry.first)and(db[row][c].second < qry.second)){
+				fail = true;
+				break;
+			}
+		}
+		if(fail) row += 1;
+	}
+	printf("%lu!: ", row+2);
+	prt_pfofn(db[row]);
+	prt_pfofn(query);
+	NL;
+	
 } // end
+

@@ -100,6 +100,10 @@ bool cmp_PrimePowers(PrimePower &ref, PrimePower &query){
 	return ((ref.first==query.first)&&(ref.second>=query.second));
 }
 
+void prt_pfofn(PfactOfN &pf){
+	for(auto pp = pf.begin(); pp != pf.end(); ++pp) printf("{%u, %u} ", pp->first, pp->second);
+	NL;
+}
 
 #if(0)
 int main(void) {

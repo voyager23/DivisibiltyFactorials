@@ -77,10 +77,10 @@ int main(int argc, char **argv)
 				++j;
 			}
 			// hack
-			if(p3.prime != 2) {
-				p3.pxp = p3.prime*(p3.power);
-			} else {
+			if(p3.prime % 4 == 0) {
 				p3.pxp = p3.prime*(p3.power-1);
+			} else {
+				p3.pxp = p3.prime*(p3.power);
 			}
 			// end hack
 			
