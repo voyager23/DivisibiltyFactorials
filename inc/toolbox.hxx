@@ -45,5 +45,5 @@
 	void generate_descriptors(std::vector<ul> &primes, ul n, PfactOfN &PfactOfN);
 	bool cmp_PrimePowers(PrimePower &l, PrimePower &r);
 	void prt_pfofn(PfactOfN &pf);
-	
+	uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query);
 #endif

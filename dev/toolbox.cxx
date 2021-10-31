@@ -105,6 +105,15 @@ void prt_pfofn(PfactOfN &pf){
 	NL;
 }
 
+uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
+
+
+return 0;	
+}
+
+
+
+
 #if(0)
 int main(void) {
     std::vector<ul> primes;
