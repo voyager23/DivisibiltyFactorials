@@ -91,5 +91,7 @@ int main(int argc, char **argv)
 
 	uint sf = find_smallest_factorial(db, query);
 	
+	printf("sf = %ul\n",sf);
+	
 } // end
 

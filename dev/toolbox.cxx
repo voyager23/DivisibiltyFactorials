@@ -107,8 +107,8 @@ void prt_pfofn(PfactOfN &pf){
 
 uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
 	uint row,col;
-	PfactOfN::iterator i_row, i_query;
-	bool found = false;
+	PfactOfN::iterator i_col, i_pp;
+	bool solution = false;
 	PrimePower hi_prime = query.back();
 	// find the starting row,col in database
 	row = 0;
@@ -117,14 +117,23 @@ uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
 	while (db[row][col].second < hi_prime.second) ++row;
 	// scan db forward for row which has prime powers >= query
 	while(row != db.size()){
-		// both db[row] and query are vectors of PrimePower
-		i_row = db[row].begin();
-		i_query = query.begin();
-	}
-		
-	
-	
-	
+		// both db[row] and query are vectors of PrimePower {prime,power}
+		for(i_pp = query.begin(); i_pp != query.end(); ++i_pp){
+			for(i_col = db[row].begin(); i_col != db[row].end(); ++i_col){
+				if(i_col->first < i_pp->first) continue;
+				if(i_col->second >= i_pp->first){ // next pp in query
+					solution = true;
+					break;
+				} else { 
+					// next row in db
+					solution = false;
+				}
+				if(!solution) break; 
+			}
+			if(!solution) break;
+		} // for i_pp
+		return row+2;
+	}		
 	return 0;
 }
 	
