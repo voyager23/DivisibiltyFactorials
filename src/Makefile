@@ -1,7 +1,7 @@
 # makefile for dev folder
 
-all : factorial_primes.cxx toolbox.o
-	g++ --std=c++11 -Wall -g -o factprimes toolbox.o factorial_primes.cxx
+all : toolbox.o
+	g++ --std=c++11 -Wall -g -o dfact toolbox.o DivisibiltyFactorials.cxx
 	
 calcs : CalcS.cxx toolbox.o
 	g++ --std=c++11 -Wall -g -o divfact toolbox.o CalcS.cxx
