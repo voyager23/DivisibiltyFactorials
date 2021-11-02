@@ -41,6 +41,7 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	const ul n = 1000; //10^8 requires about 9 seconds
+	const ul hi_fact = 1000;
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,n);
 	PfactOfN vd;
@@ -51,10 +52,10 @@ int main(int argc, char **argv)
 	temp.clear();
 	
 	cout<<"Starting database at 3!"<<endl;
-	for(ul n = 3; n <= 100; ++n){
-		// generate the prime description of n
+	for(ul m = 3; m <= hi_fact; ++m){
+		// generate the prime description of m
 		vd.clear();
-		generate_descriptors(primes, n, vd);
+		generate_descriptors(primes, m, vd);
 		temp = db.back();	// setup temp variable
 		for(auto a = vd.begin(); a != vd.end(); ++a){
 			// pair<prime,power>
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
 			}
 		} // for a...
 		db.push_back(temp);
-	} // for n=3...
+	} // for m=3...
 	
 #if(VERBOSE)
 	ul fact1 = 2;
