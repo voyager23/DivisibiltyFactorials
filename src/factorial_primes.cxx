@@ -1,5 +1,5 @@
 /*
- * DivisibilityFactorials.cxx
+ * factorial_primes.cxx
  * 
  * Copyright 2021 Michael Tate <mike@Michaels-MBP>
  * 
@@ -32,21 +32,17 @@ using namespace std;
 
 #include "../inc/toolbox.hxx"
 
-/*
- *  12!    = 479001600
- *  10^8 = 100000000
- *  11!    =   39916800
-*/
+// Describe each factorial by a vector of prime,power pairs
+// entries 0,1 empty
+// 2! = {2,1}
+// 3! = 3 * 2! = {3,1} + {2,1}
+// 4! = 4 * 3! = {3,1} + {2,2}
 
 int main(int argc, char **argv)
 {
-	// test data
-	const ul fact19 = 121645100408832000;
-	// end test
-	
-	const ul hi_factorial = 19; 
+	const ul n = 1000; //10^8 requires about 9 seconds
     std::vector<ul> primes;
-    SieveOfEratosthenes(primes,100000000);
+    SieveOfEratosthenes(primes,n);
 	PfactOfN vd;
 	PfactOfN temp ;
 	vector<PfactOfN> db;
@@ -54,8 +50,8 @@ int main(int argc, char **argv)
 	db.push_back(temp);
 	temp.clear();
 	
-	cout<<"Constructing database from 2! to "<<hi_factorial<<"!"<<endl;
-	for(ul n = 3; n <= hi_factorial ; ++n){
+	cout<<"Starting database at 3!"<<endl;
+	for(ul n = 3; n <= 100; ++n){
 		// generate the prime description of n
 		vd.clear();
 		generate_descriptors(primes, n, vd);
@@ -78,7 +74,7 @@ int main(int argc, char **argv)
 	
 #if(VERBOSE)
 	ul fact1 = 2;
-	ul range = 9;
+	ul range = 40;
 	auto a = db.begin()+fact1-2;
 	auto b = a + range;
 	while(a < b){
@@ -94,7 +90,7 @@ int main(int argc, char **argv)
 	// 5! { {5,1}, {3,1}, {2,3} }
 	// 9! { { {2,7} {3,4} {5,1} {7,1} }
 	
-	PfactOfN query = {  {2,19}, {5,7}, {13,3}, {23,1}  };
+	PfactOfN query = {  {2,19}, {23,1}  };
 
 	uint sf = find_smallest_factorial(db, query);
 	
@@ -102,6 +98,4 @@ int main(int argc, char **argv)
 	prt_pfofn(query);
 	NL;
 } // end
-
-
 
