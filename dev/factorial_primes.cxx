@@ -27,6 +27,9 @@
 #include <utility>
 #include <algorithm>
 using namespace std;
+
+#define VERBOSE 1
+
 #include "../inc/toolbox.hxx"
 
 // Describe each factorial by a vector of prime,power pairs
@@ -69,7 +72,7 @@ int main(int argc, char **argv)
 		db.push_back(temp);
 	} // for n=3...
 	
-	// DEBUG print of database
+#if(VERBOSE)
 	ul fact1 = 2;
 	ul range = 40;
 	auto a = db.begin()+fact1-2;
@@ -81,17 +84,18 @@ int main(int argc, char **argv)
 		++a;
 		++fact1;
 	}
-	// end debug section
+#endif
 	
 	// load vector temp with test query
 	// 5! { {5,1}, {3,1}, {2,3} }
 	// 9! { { {2,7} {3,4} {5,1} {7,1} }
 	
-	PfactOfN query = {  {2,7}, {3,4}, {5,1}, {7,3} };
+	PfactOfN query = {  {2,19}, {23,1}  };
 
 	uint sf = find_smallest_factorial(db, query);
 	
-	printf("sf = %ul\n",sf);
-	
+	printf("sf = %u\n",sf);
+	prt_pfofn(query);
+	NL;
 } // end
 
