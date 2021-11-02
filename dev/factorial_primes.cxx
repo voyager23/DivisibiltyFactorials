@@ -32,15 +32,19 @@ using namespace std;
 
 #include "../inc/toolbox.hxx"
 
-// Describe each factorial by a vector of prime,power pairs
-// entries 0,1 empty
-// 2! = {2,1}
-// 3! = 3 * 2! = {3,1} + {2,1}
-// 4! = 4 * 3! = {3,1} + {2,2}
+/*
+ *  12!    = 479001600
+ *  10^8 = 100000000
+ *  11!    =   39916800
+*/
 
 int main(int argc, char **argv)
 {
-	const ul n = 1000; //10^8 requires about 9 seconds
+	// test data
+	const ul fact19 = 121645100408832000;
+	// end test
+	
+	const ul n = 12; 
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,n);
 	PfactOfN vd;
@@ -50,7 +54,7 @@ int main(int argc, char **argv)
 	db.push_back(temp);
 	temp.clear();
 	
-	cout<<"Starting database at 3!"<<endl;
+	cout<<"Constructing database from 2! to "<<n<<"!"<<endl;
 	for(ul n = 3; n <= 100; ++n){
 		// generate the prime description of n
 		vd.clear();
@@ -90,7 +94,7 @@ int main(int argc, char **argv)
 	// 5! { {5,1}, {3,1}, {2,3} }
 	// 9! { { {2,7} {3,4} {5,1} {7,1} }
 	
-	PfactOfN query = {  {2,19}, {23,1}  };
+	PfactOfN query = {  {2,19}, {5,7}, {13,3}, {23,1}  };
 
 	uint sf = find_smallest_factorial(db, query);
 	
