@@ -1,5 +1,5 @@
 /*
- *DivisibilityFactorials.cxx
+ * factorial_primes.cxx
  * 
  * Copyright 2021 Michael Tate <mike@Michaels-MBP>
  * 
@@ -26,31 +26,22 @@
 #include <iterator>
 #include <utility>
 #include <algorithm>
-#include <cstdlib>
-
 using namespace std;
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 #include "../inc/toolbox.hxx"
 
-/*
- * 61756338
- * 47624262
- * 47441580
- * 41952751
- * 30140354
- * 16275126
- * 95917269
- * 29299552
- * 34988785
- * 61762778
- */
+// Describe each factorial by a vector of prime,power pairs
+// entries 0,1 empty
+// 2! = {2,1}
+// 3! = 3 * 2! = {3,1} + {2,1}
+// 4! = 4 * 3! = {3,1} + {2,2}
 
 int main(int argc, char **argv)
 {
-	const ul n = 10000; // high prime
-	const ul hi_fact = 10000;
+	const ul n = 1000; //10^8 requires about 9 seconds
+	const ul hi_fact = 1000;
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,n);
 	PfactOfN vd;
@@ -60,7 +51,7 @@ int main(int argc, char **argv)
 	db.push_back(temp);
 	temp.clear();
 	
-	cout<<"Constructing database to "<<hi_fact<<"!"<<endl;
+	cout<<"Starting database at 3!"<<endl;
 	for(ul m = 3; m <= hi_fact; ++m){
 		// generate the prime description of m
 		vd.clear();
@@ -84,7 +75,7 @@ int main(int argc, char **argv)
 	
 #if(VERBOSE)
 	ul fact1 = 2;
-	ul range = 50;
+	ul range = 40;
 	auto a = db.begin()+fact1-2;
 	auto b = a + range;
 	while(a < b){
@@ -96,22 +87,16 @@ int main(int argc, char **argv)
 	}
 #endif
 	
-	//std::vector<ul> Queries = {61756338,47624262,47441580,41952751,30140354,16275126,95917269,29299552,34988785,61762778};
-	std::vector<ul> Queries = {9329,6417,4296,8978,4182,7192,3185,6219,8004,7441};
-	for(auto iq = Queries.begin(); iq != Queries.end(); ++iq){
-		
-		std::cout<<*iq<<std::endl;
-		
-		vd.clear();
-		generate_descriptors(primes, *iq, vd);
-		uint sf = find_smallest_factorial(db, vd);
-		prt_pfofn(vd);
-		NL;
-		printf("sf = %u\n",sf);
-		NL;
-		prt_pfofn(db[sf]);
-		NL;
+	// load vector temp with test query
+	// 5! { {5,1}, {3,1}, {2,3} }
+	// 9! { { {2,7} {3,4} {5,1} {7,1} }
+	
+	PfactOfN query = {  {2,19}, {23,1}  };
 
-	}
+	uint sf = find_smallest_factorial(db, query);
+	
+	printf("sf = %u\n",sf);
+	prt_pfofn(query);
+	NL;
 } // end
 

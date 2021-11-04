@@ -1,35 +1,11 @@
-# Cxx Makefile Template
+# makefile for dev folder
 
-.PHONY : clean all go
-
-CFLAGS = -Wall -ggdb
-LIBS =
-
-OBJECTS = DivisibiltyFactorials.o library.o
-
-HEADERS = DivisibiltyFactorials.hxx library.hxx
-
-OBJS = $(addprefix ../obj/, $(OBJECTS) )
-HDRS = $(addprefix ../inc/, $(HEADERS))
-OUT = ../obj/$@
-
-RUNFILE = ../bin/DivisibiltyFactorials
-
-all : $(OBJECTS) $(HDRS)
-	g++ $(CFLAGS) $(OBJS) $(LIBS) -o $(RUNFILE)
-
-DivisibiltyFactorials.o : DivisibiltyFactorials.cxx $(HDRS)
-	g++ -c $(CFLAGS) $< -o $(OUT)
+all : toolbox.o
+	g++ --std=c++11 -Wall -g -o dfact toolbox.o DivisibiltyFactorials.cxx
 	
-library.o : library.cxx $(HDRS)
-	g++ -c $(CFLAGS) $< -o $(OUT)
-
-# ----------------------------------------------------------------------
-
-go :
-	@echo "Running file $(RUNFILE)"
-	$(RUNFILE)
+calcs : CalcS.cxx toolbox.o
+	g++ --std=c++11 -Wall -g -o divfact toolbox.o CalcS.cxx
 	
-
-
-
+toolbox.o : toolbox.cxx
+	g++ --std=c++11 -Wall -g -c -o toolbox.o toolbox.cxx
+	
