@@ -96,22 +96,17 @@ int main(int argc, char **argv)
 	}
 #endif
 	
-	//std::vector<ul> Queries = {61756338,47624262,47441580,41952751,30140354,16275126,95917269,29299552,34988785,61762778};
-	std::vector<ul> Queries = {9329,6417,4296,8978,4182,7192,3185,6219,8004,7441};
-	for(auto iq = Queries.begin(); iq != Queries.end(); ++iq){
-		
-		std::cout<<*iq<<std::endl;
-		
+	std::array<std::vector<uint>,100> aSn;	// associate s(n) with multiple values of n
+	for(uint n = 2; n <= 100; n++){
 		vd.clear();
-		generate_descriptors(primes, *iq, vd);
-		uint sf = find_smallest_factorial(db, vd);
-		prt_pfofn(vd);
-		NL;
-		printf("sf = %u\n",sf);
-		NL;
-		prt_pfofn(db[sf]);
-		NL;
-
+		generate_descriptors(primes, n, vd);
+		aSn[n-2].push_back(find_smallest_factorial(db, vd));
 	}
+	for(auto idx = 0; idx < 100; ++idx){
+		printf("s(%u): ", idx+2);
+		for(auto i = aSn[idx].begin(); i != aSn[idx].end(); ++i) printf("%u ", *i);
+		NL;
+	}
+	
 } // end
 
