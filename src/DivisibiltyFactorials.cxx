@@ -100,7 +100,7 @@ int main(int argc, char **argv)
 	for(uint n = 2; n <= 100; n++){
 		vd.clear();
 		generate_descriptors(primes, n, vd);
-		aSn[n-2].push_back(find_smallest_factorial(db, vd));
+		aSn[find_smallest_factorial(db, vd)-2].push_back(n);
 	}
 	for(auto idx = 0; idx < 100; ++idx){
 		printf("s(%u): ", idx+2);
