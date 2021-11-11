@@ -129,18 +129,40 @@ uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
 	}	
 	return 0;
 }
+
+uint fsf(uint prime, uint power){
+	uint result = 0;
 	
-
-
-
-
+	uint factorial = prime*power;	// initial guess at factorial	
+	while(factorial>1){
+		uint sum = 0;
+		uint p_dash = prime;
+		result = (uint)(factorial/p_dash);
+		while(result > 0){
+			sum += result;
+			p_dash *= prime;
+			result = (uint)(factorial/p_dash);
+		}
+		if(sum == power) return factorial;
+		factorial -= prime;
+	}
+	return 0;
+}
+	
+//-------------------Test Main------------------
 #if(0)
 int main(void) {
-    std::vector<ul> primes;
-    const ul n = 100000000; //10^8 requires about 9 seconds
-    SieveOfEratosthenes(primes,n);
-    //for(auto pf = primes.begin(); pf != primes.end(); ++pf) printf("%lu  ", *pf);
-    //NL;
+	uint prime,power;
+	std::cout<<"fsf test data."<<std::endl;
+	
+	prime = 7; power = 2;
+	std::cout<<"prime:"<<prime<<" power:"<<power<<" fsf = "<<fsf(prime,power)<<std::endl;
+	
+	prime = 5; power = 3;
+	std::cout<<"prime:"<<prime<<" power:"<<power<<" fsf = "<<fsf(prime,power)<<std::endl;
+ 
+	prime = 3; power = 9;
+	std::cout<<"prime:"<<prime<<" power:"<<power<<" fsf = "<<fsf(prime,power)<<std::endl;
  
 }
 #endif

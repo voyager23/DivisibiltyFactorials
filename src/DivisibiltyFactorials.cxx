@@ -27,10 +27,11 @@
 #include <utility>
 #include <algorithm>
 #include <cstdlib>
+#include <set>
 
 using namespace std;
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 #include "../inc/toolbox.hxx"
 
@@ -49,8 +50,17 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	const ul n = 10000; // high prime
-	const ul hi_fact = 10000;
+	
+	std::set<uint> s_uint;
+	auto result = s_uint.insert(12345);
+	if(result.second == true){
+		cout<<"inserted\n";
+	} else {
+		cout<<"failed\n";
+	}
+	
+	const ul n = 1000; // high prime
+	const ul hi_fact = 1000;
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,n);
 	PfactOfN vd;
@@ -82,6 +92,7 @@ int main(int argc, char **argv)
 		db.push_back(temp);
 	} // for m=3...
 	
+	
 #if(VERBOSE)
 	ul fact1 = 2;
 	ul range = 50;
@@ -96,22 +107,32 @@ int main(int argc, char **argv)
 	}
 #endif
 	
-	//std::vector<ul> Queries = {61756338,47624262,47441580,41952751,30140354,16275126,95917269,29299552,34988785,61762778};
-	std::vector<ul> Queries = {9329,6417,4296,8978,4182,7192,3185,6219,8004,7441};
-	for(auto iq = Queries.begin(); iq != Queries.end(); ++iq){
-		
-		std::cout<<*iq<<std::endl;
-		
+	const uint trials = 400;
+	std::array<std::vector<uint>,trials> aSn;	// associate s(n) with multiple values of n
+	for(uint n = 2; n <= trials; n++){
 		vd.clear();
-		generate_descriptors(primes, *iq, vd);
-		uint sf = find_smallest_factorial(db, vd);
-		prt_pfofn(vd);
-		NL;
-		printf("sf = %u\n",sf);
-		NL;
-		prt_pfofn(db[sf]);
-		NL;
-
+		generate_descriptors(primes, n, vd);
+		aSn[find_smallest_factorial(db, vd)-2].push_back(n);
 	}
+	for(auto idx = 0; idx < trials; ++idx){
+		if(!aSn[idx].empty()){
+			printf("s(%u): ", idx+2);
+			for(auto i = aSn[idx].begin(); i != aSn[idx].end(); ++i) printf("%u ", *i);
+			NL;
+		}
+	}
+	
+	vd.clear();
+	generate_descriptors(primes,35,vd);
+	printf("s(35) = %u\n", find_smallest_factorial(db,vd) );
+	
+	vd.clear();
+	generate_descriptors(primes,36,vd);
+	printf("s(36) = %u\n", find_smallest_factorial(db,vd) );
+	
+	vd.clear();
+	generate_descriptors(primes,198,vd);
+	printf("s(198) = %u\n", find_smallest_factorial(db,vd) );
+	
 } // end
 
