@@ -150,7 +150,7 @@ uint fsf(uint prime, uint power){
 }
 	
 //-------------------Test Main------------------
-#if(1)
+#if(0)
 int main(void) {
 	uint prime,power;
 	std::cout<<"fsf test data."<<std::endl;
