@@ -27,7 +27,7 @@
 #include <utility>
 #include <algorithm>
 #include <cstdlib>
-#include <set>
+#include <map>
 
 using namespace std;
 
@@ -50,14 +50,6 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	
-	std::set<uint> s_uint;
-	auto result = s_uint.insert(12345);
-	if(result.second == true){
-		cout<<"inserted\n";
-	} else {
-		cout<<"failed\n";
-	}
 	
 	const ul n = 1000; // high prime
 	const ul hi_fact = 1000;

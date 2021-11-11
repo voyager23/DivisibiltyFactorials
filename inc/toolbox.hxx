@@ -31,13 +31,12 @@
 	#define NL std::cout<<std::endl
 	
 	typedef uint64_t ul;
-	typedef struct{
-		ul prime,power,pxp;
-	}PPP;
-	
 	// Describe n! as sequence of prime powers
 	typedef std::pair<uint,uint> PrimePower;
 	typedef std::vector<PrimePower> PfactOfN;  // describes the prime powers of a factorial
+	
+	typedef std::pair<ul, std::vector<ul>> MapType;
+	typedef std::map<ul, std::vector<ul>> MapFactN;	// map a smallest factorial to a vector of corresponding values of n
 	
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
 	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
@@ -46,5 +45,6 @@
 	bool cmp_PrimePowers(PrimePower &l, PrimePower &r);
 	void prt_pfofn(PfactOfN &pf);
 	uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query);
-	uint fsf(uint prime, uint power);
+	uint fsf(uint prime, uint power);	// replacement for find_smallest_factorial()
+	
 #endif
