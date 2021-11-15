@@ -68,14 +68,16 @@ int main(int argc, char **argv)
     ul n;
     PfactOfN pfn;
     ul sum = 0;
-    
+    uint max, sf;
     for(n = 2; n <= N; ++n){
 		generate_descriptors(primes, n, pfn);
-		uint max = 0;
+		max = 0;
 		for(auto d = pfn.begin(); d != pfn.end(); ++d){
-			uint sf = fsf(d->first, d->second);
+			sf = fsf(d->first, d->second);
 			if(sf > max) max = sf;
 		}
+		printf("s(%lu) = %u", n, sf);
+		NL;	
 		sum += max;
 	}
 	printf("S(%lu) = %lu\n", N, sum);

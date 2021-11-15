@@ -25,7 +25,7 @@
 
 void SieveOfEratosthenes(std::vector<ul> &primes, ul n)
 {
-	printf("Starting Sieve for n = %llu\n",n);
+	printf("Starting Sieve for n = %lu\n",n);
     // internal vector of bool
     std::vector<bool> prime;
     // Set n+1 entries in vector<bool> to true
