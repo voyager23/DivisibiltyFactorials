@@ -40,9 +40,9 @@ void add_map(MapFactN &map, ul s, ul m);
 void prt_map(MapFactN mfn){
 	
 	for(auto i = mfn.begin(); i != mfn.end(); ++i){
-		printf("s(%llu): ", i->first);
+		printf("s(%lu): ", i->first);
 		for(auto j = i->second.begin(); j != i->second.end(); ++j)
-			printf("%llu ", *j);
+			printf("%lu ", *j);
 		NL;
 	}
 }
@@ -62,10 +62,26 @@ void add_map(MapFactN &mfn, ul s, ul m){
 
 int main(int argc, char **argv)
 {
-	const ul n = 1000; // high prime
+	const ul N = 100;	//consider 2 <= n <= N
     std::vector<ul> primes;
-    SieveOfEratosthenes(primes,n);
+    SieveOfEratosthenes(primes,N);
+    ul n;
+    PfactOfN pfn;
+    ul sum = 0;
     
+    for(n = 2; n <= N; ++n){
+		generate_descriptors(primes, n, pfn);
+		uint max = 0;
+		for(auto d = pfn.begin(); d != pfn.end(); ++d){
+			uint sf = fsf(d->first, d->second);
+			if(sf > max) max = sf;
+		}
+		sum += max;
+	}
+	printf("S(%lu) = %lu\n", N, sum);
+	
+		
+#if(0)  
     MapFactN mfn;
     MapFactN::iterator working;
     // add test values
@@ -81,7 +97,8 @@ int main(int argc, char **argv)
 	add_map(mfn, 11,22);
 	
 	prt_map(mfn);
-    
+#endif
+
     NL;
 }
 
