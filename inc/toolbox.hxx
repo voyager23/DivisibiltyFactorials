@@ -32,6 +32,10 @@
 	#define NL std::cout<<std::endl
 	
 	typedef uint64_t ul;
+	// required by CalcS
+	typedef struct{
+		ul prime, power, pxp;
+	}PPP;
 	// Describe n! as sequence of prime powers
 	typedef std::pair<uint,uint> PrimePower;
 	typedef std::vector<PrimePower> PfactOfN;  // describes the prime powers of a factorial
