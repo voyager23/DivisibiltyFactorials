@@ -50,6 +50,6 @@
 	bool cmp_PrimePowers(PrimePower &l, PrimePower &r);
 	void prt_pfofn(PfactOfN &pf);
 	uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query);
-	uint fsf(uint prime, uint power);	// replacement for find_smallest_factorial()
+	ul fsf(ul prime, ul power);	// replacement for find_smallest_factorial()
 	
 #endif

@@ -130,18 +130,18 @@ uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
 	return 0;
 }
 
-uint fsf(uint prime, uint power){
-	uint result = 0;
+ul fsf(ul prime, ul power){
+	ul result = 0;
 	
-	uint factorial = prime*power;	// initial guess at factorial	
+	ul factorial = prime*power;	// initial guess at factorial	
 	while(factorial>1){
-		uint sum = 0;
-		uint p_dash = prime;
-		result = (uint)(factorial/p_dash);
+		ul sum = 0;
+		ul p_dash = prime;
+		result = (ul)(factorial/p_dash);
 		while(result > 0){
 			sum += result;
 			p_dash *= prime;
-			result = (uint)(factorial/p_dash);
+			result = (ul)(factorial/p_dash);
 		}
 		if(sum == power) return factorial;
 		

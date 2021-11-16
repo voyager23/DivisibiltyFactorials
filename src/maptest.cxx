@@ -62,9 +62,10 @@ void add_map(MapFactN &mfn, ul s, ul m){
 
 int main(int argc, char **argv)
 {
-	const ul N = 100;	//consider 2 <= n <= N
+	const ul N = 2000000;	//consider 2 <= n <= N
+	
     std::vector<ul> primes;
-    SieveOfEratosthenes(primes,N);
+    SieveOfEratosthenes(primes,N+13);	// ensure all relevant primes are included
     ul n;
     PfactOfN pfn;
     ul sum = 0;
