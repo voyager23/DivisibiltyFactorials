@@ -144,11 +144,16 @@ uint fsf(uint prime, uint power){
 			result = (uint)(factorial/p_dash);
 		}
 		if(sum == power) return factorial;
+		
+		// New Line
+		if(sum < power) return (factorial+prime);
+		// --------
+		
 		factorial -= prime;
 	}
 	return 0;
 }
-	
+
 //-------------------Test Main------------------
 #if(0)
 int main(void) {
