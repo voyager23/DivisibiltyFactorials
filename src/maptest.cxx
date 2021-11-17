@@ -62,7 +62,9 @@ void add_map(MapFactN &mfn, ul s, ul m){
 
 int main(int argc, char **argv)
 {
-	const ul N = 2000000;	//consider 2 <= n <= N
+	std::map<std::pair<ul,ul>, ul> foobar;
+	
+	const ul N = 5000000;	//consider 2 <= n <= N
 	
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,N+13);	// ensure all relevant primes are included
@@ -77,8 +79,8 @@ int main(int argc, char **argv)
 			sf = fsf(d->first, d->second);
 			if(sf > max) max = sf;
 		}
-		printf("s(%lu) = %u", n, sf);
-		NL;	
+		//printf("s(%lu) = %u", n, sf);
+		//NL;	
 		sum += max;
 	}
 	printf("S(%lu) = %lu\n", N, sum);

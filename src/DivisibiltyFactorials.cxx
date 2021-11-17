@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 	auto a = db.begin()+fact1-2;
 	auto b = a + range;
 	while(a < b){
-		printf("%llu! = ", fact1);
+		printf("%lu! = ", fact1);
 		for(auto g = a->begin(); g != a->end(); ++g) printf("{%u,%u} ", g->first,g->second);
 		NL;
 		++a;
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 		generate_descriptors(primes, n, vd);
 		aSn[find_smallest_factorial(db, vd)-2].push_back(n);
 	}
-	for(auto idx = 0; idx < trials; ++idx){
+	for(uint idx = 0; idx < trials; ++idx){
 		if(!aSn[idx].empty()){
 			printf("s(%u): ", idx+2);
 			for(auto i = aSn[idx].begin(); i != aSn[idx].end(); ++i) printf("%u ", *i);
