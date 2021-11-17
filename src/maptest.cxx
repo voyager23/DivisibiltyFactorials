@@ -34,9 +34,8 @@ using namespace std;
 #define VERBOSE 1
 
 #include "../inc/toolbox.hxx"
-
-void add_map(MapFactN &map, ul s, ul m);
-
+//......................................................................
+void prt_map(MapFactN mfn);
 void prt_map(MapFactN mfn){
 	
 	for(auto i = mfn.begin(); i != mfn.end(); ++i){
@@ -46,7 +45,8 @@ void prt_map(MapFactN mfn){
 		NL;
 	}
 }
-
+//......................................................................
+void add_map(MapFactN &map, ul s, ul m);
 void add_map(MapFactN &mfn, ul s, ul m){
     MapFactN::iterator working = mfn.find(s);
     if(working == mfn.end()){
@@ -57,12 +57,17 @@ void add_map(MapFactN &mfn, ul s, ul m){
 		working->second.push_back(m);
 	}	
 }
+//......................................................................
+struct cmp_mapkeys {
+  bool operator() (const PrimePower& lhs, const PrimePower& rhs) const
+  {return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));}
+};
 
 //----------------------------------------------------------
-
 int main(int argc, char **argv)
 {
 	const ul N = 2000000;	//consider 2 <= n <= N
+	std::map<PrimePower, ul, cmp_mapkeys> cache;	// map a prime-power pair to smallest factorial
 	
     std::vector<ul> primes;
     SieveOfEratosthenes(primes,N+13);	// ensure all relevant primes are included
