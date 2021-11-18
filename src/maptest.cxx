@@ -35,16 +35,7 @@ using namespace std;
 
 #include "../inc/toolbox.hxx"
 //......................................................................
-void prt_map(MapFactN mfn);
-void prt_map(MapFactN mfn){
-	
-	for(auto i = mfn.begin(); i != mfn.end(); ++i){
-		printf("s(%lu): ", i->first);
-		for(auto j = i->second.begin(); j != i->second.end(); ++j)
-			printf("%lu ", *j);
-		NL;
-	}
-}
+
 //......................................................................
 void add_map(MapFactN &map, ul s, ul m);
 void add_map(MapFactN &mfn, ul s, ul m){

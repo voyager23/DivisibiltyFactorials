@@ -58,5 +58,6 @@
 	uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query);
 	ul fsf(ul prime, ul power);	// replacement for find_smallest_factorial()
 	
-	ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache);	
+	ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache);
+	void prt_map(MapFactN mfn);
 #endif

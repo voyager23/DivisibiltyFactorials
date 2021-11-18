@@ -154,6 +154,16 @@ ul fsf(ul prime, ul power){
 	return 0;
 }
 
+
+void prt_map(MapFactN mfn){
+	
+	for(auto i = mfn.begin(); i != mfn.end(); ++i){
+		printf("s(%lu): ", i->first);
+		for(auto j = i->second.begin(); j != i->second.end(); ++j)
+			printf("%lu ", *j);
+		NL;
+	}
+}
 ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache){
 	// search cache for existing solution for PrimePower
 	// if found:
@@ -196,9 +206,32 @@ ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache){
 
 
 //-------------------Test code------------------
-#if(0)
+#if(1)
+
+bool cmp2(PrimePower &lhs, PrimePower &rhs);
+bool cmp2(PrimePower &lhs, PrimePower &rhs){
+	return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));
+}
+
 int main(void) {
 
+
+	
+	std::map<PrimePower, ul> cache;
+	cache[std::pair<ul,ul>{2,1}] = 2;
+	cache[std::pair<ul,ul>{3,1}] = 3;
+	cache[std::pair<ul,ul>{2,2}] = 4;
+	cache[std::pair<ul,ul>{5,1}] = 5;
+	cache[std::pair<ul,ul>{2,3}] = 4;
+	for(auto c = cache.begin(); c != cache.end(); ++c)
+		std::cout<<c->first.first<<","<<c->first.second<<" : "<<c->second<<std::endl;
+	std::pair<ul,ul> foo = {3,1};
+	if(cache.find(foo) != cache.end()){
+		std::cout<<"found\n";
+	} else {
+		std::cout<<"missing\n";
+	}
+    NL;
 }
 #endif
 
