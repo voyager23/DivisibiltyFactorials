@@ -130,9 +130,23 @@ uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
 	return 0;
 }
 
-ul fsf(ul prime, ul power){
-	ul result = 0;
+ul fsf(ul prime, ul power, std::map<PrimePower, ul, cmp_mapkeys> &cache){
 	
+// version 2.0
+// search cache for prime/power pair
+//	if found:
+//		return found factorial
+//	else:
+//		calc s(n)
+//		add new key-value pair to cache
+//		return new factorial
+
+	
+
+
+
+
+	ul result = 0;	
 	ul factorial = prime*power;	// initial guess at factorial	
 	while(factorial>1){
 		ul sum = 0;

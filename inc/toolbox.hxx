@@ -49,7 +49,14 @@
 	void generate_descriptors(std::vector<ul> &primes, ul n, PfactOfN &PfactOfN);
 	bool cmp_PrimePowers(PrimePower &l, PrimePower &r);
 	void prt_pfofn(PfactOfN &pf);
+	
+	struct cmp_mapkeys {
+		bool operator() (const PrimePower& lhs, const PrimePower& rhs) const
+		{return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));}
+	};
+	
 	uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query);
-	ul fsf(ul prime, ul power);	// replacement for find_smallest_factorial()
+	
+	ul fsf(ul prime, ul power, std::map<PrimePower, ul, cmp_mapkeys> &cache);	// replacement for find_smallest_factorial()
 	
 #endif

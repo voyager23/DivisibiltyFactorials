@@ -58,10 +58,7 @@ void add_map(MapFactN &mfn, ul s, ul m){
 	}	
 }
 //......................................................................
-struct cmp_mapkeys {
-  bool operator() (const PrimePower& lhs, const PrimePower& rhs) const
-  {return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));}
-};
+
 
 //----------------------------------------------------------
 int main(int argc, char **argv)
@@ -79,7 +76,7 @@ int main(int argc, char **argv)
 		generate_descriptors(primes, n, pfn);
 		max = 0;
 		for(auto d = pfn.begin(); d != pfn.end(); ++d){
-			sf = fsf(d->first, d->second);
+			sf = fsf(d->first, d->second, cache);
 			if(sf > max) max = sf;
 		}
 		printf("s(%lu) = %u", n, sf);
