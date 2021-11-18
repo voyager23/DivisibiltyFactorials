@@ -57,56 +57,31 @@ void add_map(MapFactN &mfn, ul s, ul m){
 		working->second.push_back(m);
 	}	
 }
-//......................................................................
-struct cmp_mapkeys {
-  bool operator() (const PrimePower& lhs, const PrimePower& rhs) const
-  {return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));}
-};
 
 //----------------------------------------------------------
 int main(int argc, char **argv)
 {
-	const ul N = 2000000;	//consider 2 <= n <= N
+	const ul N = 100;	//consider 2 <= n <= N
 	std::map<PrimePower, ul, cmp_mapkeys> cache;	// map a prime-power pair to smallest factorial
 	
     std::vector<ul> primes;
-    SieveOfEratosthenes(primes,N+13);	// ensure all relevant primes are included
-    ul n;
-    PfactOfN pfn;
-    ul sum = 0;
-    uint max, sf;
-    for(n = 2; n <= N; ++n){
-		generate_descriptors(primes, n, pfn);
-		max = 0;
-		for(auto d = pfn.begin(); d != pfn.end(); ++d){
-			sf = fsf(d->first, d->second);
-			if(sf > max) max = sf;
+    SieveOfEratosthenes(primes,N+2);	// ensure all relevant primes are included
+    
+	// add some values to the cache for testing
+	for(auto i = primes.begin(); i != primes.end(); ++i){
+		ul p_bar = *i;
+		ul power = 1;
+		while( 1 ){
+			PrimePower pp = std::pair<ul,ul>{*i,power};
+			ul sf = fsf_v2(pp, cache);
+			power += 1;
+			p_bar *= *i;
+			if(p_bar > N) break;
 		}
-		printf("s(%lu) = %u", n, sf);
-		NL;	
-		sum += max;
-	}
-	printf("S(%lu) = %lu\n", N, sum);
-	
-		
-#if(0)  
-    MapFactN mfn;
-    MapFactN::iterator working;
-    // add test values
-	add_map(mfn, 9, 27);
-	add_map(mfn, 10, 25);
-	add_map(mfn, 11,11);
-	
-	add_map(mfn, 9, 81);
-	add_map(mfn, 11,33);
-	
-	add_map(mfn, 9, 54);
-	add_map(mfn, 10, 50);
-	add_map(mfn, 11,22);
-	
-	prt_map(mfn);
-#endif
+	}		 
 
+	for(auto c = cache.begin(); c != cache.end(); ++c)
+		cout<<c->first.first<<","<<c->first.second<<" : "<<c->second<<endl;
     NL;
 }
 

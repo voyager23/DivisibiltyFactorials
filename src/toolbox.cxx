@@ -154,21 +154,51 @@ ul fsf(ul prime, ul power){
 	return 0;
 }
 
-//-------------------Test Main------------------
+ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache){
+	// search cache for existing solution for PrimePower
+	// if found:
+	//		return existing solution
+	// else:
+	//		calc new solution
+	//		add new solution to cache
+	//		return new solution
+	std::map<PrimePower, ul, cmp_mapkeys>::iterator it = cache.find(pp);
+	if(it != cache.end()) return it->second;
+	ul prime = pp.first;
+	ul power = pp.second;
+	
+	ul result = 0;
+	ul factorial = prime*power;	// initial guess at factorial	
+	while(factorial>1){
+		ul sum = 0;
+		ul p_dash = prime;
+		result = (ul)(factorial/p_dash);
+		while(result > 0){
+			sum += result;
+			p_dash *= prime;
+			result = (ul)(factorial/p_dash);
+		}
+		
+		if(sum == power){
+			cache.insert(std::pair< std::pair<ul,ul>, ul>({{prime,power}, factorial}));
+			return factorial;
+		}
+
+		if(sum < power){
+			cache.insert(std::pair< std::pair<ul,ul>, ul>({{prime,power}, factorial+prime}));
+			return (factorial+prime);
+		}
+		
+		factorial -= prime;
+	}
+	return 0;
+}
+
+
+//-------------------Test code------------------
 #if(0)
 int main(void) {
-	uint prime,power;
-	std::cout<<"fsf test data."<<std::endl;
-	
-	prime = 7; power = 2;
-	std::cout<<"prime:"<<prime<<" power:"<<power<<" fsf = "<<fsf(prime,power)<<std::endl;
-	
-	prime = 5; power = 3;
-	std::cout<<"prime:"<<prime<<" power:"<<power<<" fsf = "<<fsf(prime,power)<<std::endl;
- 
-	prime = 3; power = 9;
-	std::cout<<"prime:"<<prime<<" power:"<<power<<" fsf = "<<fsf(prime,power)<<std::endl;
- 
+
 }
 #endif
 

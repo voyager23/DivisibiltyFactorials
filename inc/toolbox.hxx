@@ -43,6 +43,12 @@
 	typedef std::pair<ul, std::vector<ul>> MapType;
 	typedef std::map<ul, std::vector<ul>> MapFactN;	// map a smallest factorial to a vector of corresponding values of n
 	
+	//.....Define a comparison object.....
+	struct cmp_mapkeys {
+	  bool operator() (const PrimePower& lhs, const PrimePower& rhs) const
+	  {return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));}
+	};
+	
 	void SieveOfEratosthenes(std::vector<ul> &primes, ul n);
 	void find_factors(std::vector<ul> &primes, ul n, std::vector<ul> &factors);
 	void generate_factorials(std::vector<ul> &factorials);
@@ -52,4 +58,5 @@
 	uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query);
 	ul fsf(ul prime, ul power);	// replacement for find_smallest_factorial()
 	
+	ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache);	
 #endif
