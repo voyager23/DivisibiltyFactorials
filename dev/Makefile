@@ -1,6 +1,9 @@
 # makefile for dev folder
+ 
+list11 : list11.cxx toolbox.o
+	g++ --std=c++11 -g -o l11 toolbox.o list11.cxx
 
-all : factorial_primes.cxx toolbox.o
+fp : factorial_primes.cxx toolbox.o
 	g++ --std=c++11 -Wall -g -o factprimes toolbox.o factorial_primes.cxx
 	
 calcs : CalcS.cxx toolbox.o

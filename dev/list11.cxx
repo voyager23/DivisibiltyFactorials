@@ -1,5 +1,5 @@
 /*
- * list11.cxx
+ * listPrime.cxx
  * 
  * Copyright 2021 Mike <mike@pop-os>
  * 
@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
+ * MA 02Prime0-1301, USA.
  * 
- * listing of multiples of 11, 11^2, 11^3 etc up to 1000
+ * listing of multiples of Prime, Prime^2, Prime^3 etc up to 1000
  */
 
 
@@ -38,15 +38,36 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	const ul N = 470;	// upper limit
+	const ul N = 100;	// upper limit
+	
+	std::vector<ul> primes;
+	SieveOfEratosthenes(primes, N+2); // prepare a vector of primes
+	const ul Prime = 2;
 	ul n; //working variable
-	for(n = 11; n < N; n += 11){
-		if((n % (11*11))==0) continue;
+	
+	ul modulus = Prime*Prime;
+	ul start = modulus/Prime;
+	NL;
+	for(n = start; n <= N; n += start){
+		if((n % (modulus))==0) continue;
 		cout<<n<<" ";
 	}
-	NL;
-	for(n = (11*11); n < N; n += (11*11)) cout<<n<<" ";
-	NL;
+	NL;NL;
+	modulus *= Prime;
+	start *= Prime;
+	for(n = start; n <= N; n += start){
+		if((n % (modulus))==0) continue;
+		cout<<n<<" ";
+	}
+	NL; NL;
+	
+	modulus *= Prime;
+	start *= Prime;
+	for(n = start; n <= N; n += start){
+		if((n % (modulus))==0) continue;
+		cout<<n<<" ";
+	}
+	NL; NL;
 	return 0;
 }
 

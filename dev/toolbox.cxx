@@ -25,7 +25,7 @@
 
 void SieveOfEratosthenes(std::vector<ul> &primes, ul n)
 {
-	printf("Starting Sieve for n = %llu\n",n);
+	printf("Starting Sieve for n = %lu\n",n);
     // internal vector of bool
     std::vector<bool> prime;
     // Set n+1 entries in vector<bool> to true
@@ -129,19 +129,104 @@ uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){
 	}	
 	return 0;
 }
+
+ul fsf(ul prime, ul power){
+	ul result = 0;
 	
+	ul factorial = prime*power;	// initial guess at factorial	
+	while(factorial>1){
+		ul sum = 0;
+		ul p_dash = prime;
+		result = (ul)(factorial/p_dash);
+		while(result > 0){
+			sum += result;
+			p_dash *= prime;
+			result = (ul)(factorial/p_dash);
+		}
+		if(sum == power) return factorial;
+		
+		// New Line
+		if(sum < power) return (factorial+prime);
+		// --------
+		
+		factorial -= prime;
+	}
+	return 0;
+}
 
 
+void prt_map(MapFactN mfn){
+	
+	for(auto i = mfn.begin(); i != mfn.end(); ++i){
+		printf("s(%lu): ", i->first);
+		for(auto j = i->second.begin(); j != i->second.end(); ++j)
+			printf("%lu ", *j);
+		NL;
+	}
+}
+ul fsf_v2(PrimePower pp, std::map<PrimePower, ul> &cache){
+	// search cache for existing solution for PrimePower
+	// if found:
+	//		return existing solution
+	// else:
+	//		calc new solution
+	//		add new solution to cache
+	//		return new solution
+	std::map<PrimePower, ul>::iterator it = cache.find(pp);
+	if(it != cache.end()) return it->second;
+	
+	ul prime = pp.first;
+	ul power = pp.second;
+	ul result = 0;
+	ul factorial = prime*power;	// initial guess at factorial	
+	while(factorial>1){
+		ul sum = 0;
+		ul p_dash = prime;
+		result = (ul)(factorial/p_dash);
+		while(result > 0){
+			sum += result;
+			p_dash *= prime;
+			result = (ul)(factorial/p_dash);
+		}
+		
+		if(sum == power){
+			cache.insert(std::pair< std::pair<ul,ul>, ul>({{prime,power}, factorial}));
+			return factorial;
+		}
+
+		if(sum < power){
+			cache.insert(std::pair< std::pair<ul,ul>, ul>({{prime,power}, factorial+prime}));
+			return (factorial+prime);
+		}
+		
+		factorial -= prime;
+	}
+	return 0;
+}
 
 
+//-------------------Test code------------------
 #if(0)
+
 int main(void) {
+	const ul n = 100000000; // high prime
     std::vector<ul> primes;
-    const ul n = 100000000; //10^8 requires about 9 seconds
-    SieveOfEratosthenes(primes,n);
-    //for(auto pf = primes.begin(); pf != primes.end(); ++pf) printf("%lu  ", *pf);
-    //NL;
- 
+    
+    SieveOfEratosthenes(primes,n+2);
+	std::map<PrimePower, ul> cache;
+	PfactOfN pfn;	// vector of prime/powers
+	ul sum = 0;
+	for(ul m = 2; m <= n; ++m){
+		generate_descriptors(primes, m, pfn); // clears pfn on entry
+		ul max = 0;
+		for(auto pp = pfn.begin(); pp != pfn.end(); ++pp){
+			ul s = fsf_v2(*pp, cache);
+			if(s > max) max = s;
+		}
+		sum += max;
+	}
+	NL;
+	std::cout<<"Sum = "<<sum<<std::endl;
 }
 #endif
 
