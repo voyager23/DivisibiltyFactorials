@@ -164,7 +164,7 @@ void prt_map(MapFactN mfn){
 		NL;
 	}
 }
-ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache){
+ul fsf_v2(PrimePower pp, std::map<PrimePower, ul> &cache){
 	// search cache for existing solution for PrimePower
 	// if found:
 	//		return existing solution
@@ -172,11 +172,11 @@ ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache){
 	//		calc new solution
 	//		add new solution to cache
 	//		return new solution
-	std::map<PrimePower, ul, cmp_mapkeys>::iterator it = cache.find(pp);
+	std::map<PrimePower, ul>::iterator it = cache.find(pp);
 	if(it != cache.end()) return it->second;
+	
 	ul prime = pp.first;
 	ul power = pp.second;
-	
 	ul result = 0;
 	ul factorial = prime*power;	// initial guess at factorial	
 	while(factorial>1){
@@ -208,30 +208,25 @@ ul fsf_v2(PrimePower pp, std::map<PrimePower, ul, cmp_mapkeys> &cache){
 //-------------------Test code------------------
 #if(1)
 
-bool cmp2(PrimePower &lhs, PrimePower &rhs);
-bool cmp2(PrimePower &lhs, PrimePower &rhs){
-	return ((lhs.first < rhs.first)&&(lhs.second < rhs.second));
-}
-
 int main(void) {
-
-
-	
+	const ul n = 1000; // high prime
+    std::vector<ul> primes;
+    
+    SieveOfEratosthenes(primes,n+2);
 	std::map<PrimePower, ul> cache;
-	cache[std::pair<ul,ul>{2,1}] = 2;
-	cache[std::pair<ul,ul>{3,1}] = 3;
-	cache[std::pair<ul,ul>{2,2}] = 4;
-	cache[std::pair<ul,ul>{5,1}] = 5;
-	cache[std::pair<ul,ul>{2,3}] = 4;
-	for(auto c = cache.begin(); c != cache.end(); ++c)
-		std::cout<<c->first.first<<","<<c->first.second<<" : "<<c->second<<std::endl;
-	std::pair<ul,ul> foo = {3,1};
-	if(cache.find(foo) != cache.end()){
-		std::cout<<"found\n";
-	} else {
-		std::cout<<"missing\n";
+	PfactOfN pfn;	// vector of prime/powers
+	ul sum = 0;
+	for(ul m = 2; m <= 1000; ++m){
+		generate_descriptors(primes, m, pfn); // clears pfn on entry
+		ul max = 0;
+		for(auto pp = pfn.begin(); pp != pfn.end(); ++pp){
+			ul s = fsf_v2(*pp, cache);
+			if(s > max) max = s;
+		}
+		sum += max;
 	}
-    NL;
+	NL;
+	std::cout<<"Sum = "<<sum<<std::endl;
 }
 #endif
 
