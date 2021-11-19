@@ -209,14 +209,14 @@ ul fsf_v2(PrimePower pp, std::map<PrimePower, ul> &cache){
 #if(1)
 
 int main(void) {
-	const ul n = 1000; // high prime
+	const ul n = 100000000; // high prime
     std::vector<ul> primes;
     
     SieveOfEratosthenes(primes,n+2);
 	std::map<PrimePower, ul> cache;
 	PfactOfN pfn;	// vector of prime/powers
 	ul sum = 0;
-	for(ul m = 2; m <= 1000; ++m){
+	for(ul m = 2; m <= n; ++m){
 		generate_descriptors(primes, m, pfn); // clears pfn on entry
 		ul max = 0;
 		for(auto pp = pfn.begin(); pp != pfn.end(); ++pp){
