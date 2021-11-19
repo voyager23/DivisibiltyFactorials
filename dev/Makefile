@@ -1,5 +1,8 @@
 # makefile for dev folder
- 
+
+lp : list_primes.cxx toolbox.o
+	g++ --std=c++11 -g -o lp toolbox.o list_primes.cxx
+
 list11 : list11.cxx toolbox.o
 	g++ --std=c++11 -g -o l11 toolbox.o list11.cxx
 
