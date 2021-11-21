@@ -206,10 +206,11 @@ ul fsf_v2(PrimePower pp, std::map<PrimePower, ul> &cache){
 
 
 //-------------------Test code------------------
-#if(1)
+#if(0)
 
 int main(void) {
-	const ul n = 100000000; // high prime
+	const ul n = 10000; // high prime
+	// expected result 10125843
     std::vector<ul> primes;
     
     SieveOfEratosthenes(primes,n+2);

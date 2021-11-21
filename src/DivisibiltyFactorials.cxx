@@ -31,7 +31,7 @@
 
 using namespace std;
 
-#define VERBOSE 1
+#define VERBOSE 0
 
 #include "../inc/toolbox.hxx"
 
@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 	auto a = db.begin()+fact1-2;
 	auto b = a + range;
 	while(a < b){
-		printf("%llu! = ", fact1);
+		printf("%lu! = ", fact1);
 		for(auto g = a->begin(); g != a->end(); ++g) printf("{%u,%u} ", g->first,g->second);
 		NL;
 		++a;
@@ -99,14 +99,14 @@ int main(int argc, char **argv)
 	}
 #endif
 	
-	const uint trials = 400;
+	const uint trials = 500;
 	std::array<std::vector<uint>,trials> aSn;	// associate s(n) with multiple values of n
 	for(uint n = 2; n <= trials; n++){
 		vd.clear();
 		generate_descriptors(primes, n, vd);
 		aSn[find_smallest_factorial(db, vd)-2].push_back(n);
 	}
-	for(auto idx = 0; idx < trials; ++idx){
+	for(uint idx = 0; idx < trials; ++idx){
 		if(!aSn[idx].empty()){
 			printf("s(%u): ", idx+2);
 			for(auto i = aSn[idx].begin(); i != aSn[idx].end(); ++i) printf("%u ", *i);
@@ -114,6 +114,7 @@ int main(int argc, char **argv)
 		}
 	}
 	
+#if(0)
 	vd.clear();
 	generate_descriptors(primes,35,vd);
 	printf("s(35) = %u\n", find_smallest_factorial(db,vd) );
@@ -125,6 +126,7 @@ int main(int argc, char **argv)
 	vd.clear();
 	generate_descriptors(primes,198,vd);
 	printf("s(198) = %u\n", find_smallest_factorial(db,vd) );
+#endif
 	
 } // end
 

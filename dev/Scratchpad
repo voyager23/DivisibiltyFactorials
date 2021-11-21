@@ -1,3 +1,26 @@
+	20Nov2012
+	// outer loop selects primes <= N
+	// inner loop enumerates powers of prime <= N
+	ul S = 0;
+	for(auto p = primes.begin(); p != primes.end(); ++p){
+		const ul Prime = *p;
+		if(Prime > N) break;
+		std::cout<<"Prime: "<<Prime<<std::endl;
+		ul start = Prime;
+		ul modulus = Prime*Prime;
+		do{
+			for(auto n = start; n <= N; n += start){
+				if((n % (modulus))==0) continue;
+				cout<<n<<" ";
+				S += Prime;
+			}
+			NL;
+			modulus *= Prime;
+			start *= Prime;
+		}while(modulus <= N);
+	} // for p...
+	std::cout << "S(" << N << ") = " << S << std::endl;
+
 	02Nov2021
 	
 uint find_smallest_factorial(std::vector<PfactOfN> &db, PfactOfN &query){

@@ -29,6 +29,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <map>
+#include <cmath>
 
 using namespace std;
 
@@ -42,28 +43,24 @@ int main(int argc, char **argv)
 	
 	std::vector<ul> primes;
 	SieveOfEratosthenes(primes, N+2); // prepare a vector of primes
+	std::vector<ul>::iterator ip = primes.begin();
 	
-	// outer loop selects primes <= N
-	// inner loop enumerates powers of prime <= N
-	ul S = 0;
-	for(auto p = primes.begin(); p != primes.end(); ++p){
-		const ul Prime = *p;
-		if(Prime > N) break;
-		std::cout<<"Prime: "<<Prime<<std::endl;
-		ul start = Prime;
-		ul modulus = Prime*Prime;
-		do{
-			for(auto n = start; n <= N; n += start){
-				if((n % (modulus))==0) continue;
-				cout<<n<<" ";
-				S += Prime;
+	ul prime,mult,power,n;
+	
+	do{
+		prime = *ip;
+		std::cout<<"prime: "<<prime<<std::endl;
+		for(power = 1; power < 3; ++power){
+			n = std::pow(prime,power);
+			std::cout<<n<<"! ";
+			for(mult = power-1; mult < n; mult += 1){
+				if(n*mult > 100) break;
+				std::cout<<n*mult<<" ";
 			}
 			NL;
-			modulus *= Prime;
-			start *= Prime;
-		}while(modulus <= N);
-	} // for p...
-	std::cout << "S(" << N << ") = " << S << std::endl;
+		}
+		prime = *(++ip);
+	}while(prime <= 100/2);
 	return 0;
 }
 
