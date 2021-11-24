@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 	}
 #endif
 	
-	const uint trials = 500;
+	const uint trials = 200;
 	std::array<std::vector<uint>,trials> aSn;	// associate s(n) with multiple values of n
 	for(uint n = 2; n <= trials; n++){
 		vd.clear();

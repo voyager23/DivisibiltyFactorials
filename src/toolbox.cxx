@@ -206,7 +206,7 @@ ul fsf_v2(PrimePower pp, std::map<PrimePower, ul> &cache){
 
 
 //-------------------Test code------------------
-#if(0)
+#if(1)
 
 int main(void) {
 	const ul n = 10000; // high prime

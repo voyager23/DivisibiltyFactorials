@@ -26,6 +26,7 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
+#include <cmath>
 using namespace std;
 #include "../inc/toolbox.hxx"
 

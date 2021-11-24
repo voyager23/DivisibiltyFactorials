@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 	vector<PPP> v_p3;
 	PPP p3;
 	PPP prod;
-	for(ul n = 2; n <= 100; n+=1) {
+	for(ul n = 150; n <= 150; n+=1) {
 		find_factors(primes,n,factors);	// 2,2,3,13...
 		// remap factors vector to struct PPP
 		vector<ul>::iterator i = factors.begin();

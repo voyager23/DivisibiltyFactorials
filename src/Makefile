@@ -12,5 +12,8 @@ toolbox.o : toolbox.cxx
 	g++ --std=c++11 -Wall -g -c -o toolbox.o toolbox.cxx
 	
 calcs : CalcS.cxx toolbox.o
-	g++ --std=c++11 -Wall -g -o divfact toolbox.o CalcS.cxx
+	g++ --std=c++11 -Wall -g -o calcs toolbox.o CalcS.cxx
+	
+tbox : toolbox.cxx
+	g++ --std=c++11 -Wall -g -o tbt toolbox.cxx
 	
